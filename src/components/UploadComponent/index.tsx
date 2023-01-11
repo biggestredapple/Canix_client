@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { message } from 'antd';
+import React, { useState, useEffect, useRef } from 'react';
 import { UploadButton } from './index.style';
 
-const UploadComponent = () => {
+import { BASE_SERVER_API_URL } from '../../config';
+
+type Props = {
+    setStateMsg: Function,
+    setStatus: Function
+}
+
+const UploadComponent: React.FC<Props> = ({ setStateMsg, setStatus }) => {
+    const API_URL = process.env.REACT_APP_SERVER || BASE_SERVER_API_URL;
+    const fileRef = useRef<HTMLInputElement | null>(null);
+
     const [fileList, setFileList] = useState<FileList>()
 
-    useEffect(() => {
-        fetch('http://localhost:3000/scales', {
-            method: 'get',
-        })
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error));
-    }, [])
 
     const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("onchange", fileRef);
         setFileList(event.target.files!);
     }
 
@@ -29,19 +31,28 @@ const UploadComponent = () => {
                 const formData = new FormData();
                 formData.append('file', file);
 
-                return fetch('http://localhost:3000/upload', {
+                return fetch(`${API_URL}/upload`, {
                     method: 'POST',
                     body: formData
                 })
+                    .then(res => res.json())
                     .catch(error => console.log(error));
             });
 
             Promise.all(upload)
-                .then(() => {
-                    message.success("Upload success");
-                    setFileList(undefined)
+                .then((res) => {
+                    if (res[0].message === "success") {
+                        setStateMsg("Upload success");
+                        setStatus(true);
+                        setFileList(undefined);
+                        if (fileRef.current) fileRef.current.value = "";
+
+                        console.log(fileRef);
+                    } else {
+                        setStateMsg('Upload Failed');
+                    }
                 })
-                .catch(() => message.error("Upload failed"))
+                .catch(() => { setStateMsg('Upload Failed') })
 
         }
     }
@@ -49,7 +60,7 @@ const UploadComponent = () => {
     return (
         <UploadButton>
             <form onSubmit={handleSubmit}>
-                <input type="file" accept='text/csv' multiple={true} onChange={onImageChange} />
+                <input ref={fileRef} type="file" accept='text/csv' multiple={true} onChange={onImageChange} />
                 <input type='submit' />
             </form>
         </UploadButton>
