@@ -44,12 +44,12 @@ const TableComponent: React.FC<Props> = ({ scales }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {scales.map((row) => (
-                            <StyledTableRow>
+                        {scales && scales.map((row, index) => (
+                            <StyledTableRow key={index}>
                                 <StyledTableCell component="th" scope="row">
                                     {row.date}
                                 </StyledTableCell>
-                                <StyledTableCell align="right">{row.productId}</StyledTableCell>
+                                <StyledTableCell align="right">{row.product_id}</StyledTableCell>
                                 <StyledTableCell align="right">{row.weight.toString()}</StyledTableCell>
                                 <StyledTableCell align="right">{row.unit}</StyledTableCell>
                             </StyledTableRow>

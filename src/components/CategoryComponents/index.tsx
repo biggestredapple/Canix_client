@@ -1,5 +1,7 @@
 import React, { ChangeEvent } from "react";
 
+import { CategoryStyle } from './index.style'
+
 type Props = {
     categories: string[],
     sum: Number,
@@ -14,15 +16,15 @@ const CategoryComponent: React.FC<Props> = ({ categories, sum, selectedCategory,
     }
 
     return (
-        <>
+        <CategoryStyle>
             <select name="category" onChange={onSelected} value={selectedCategory}>
                 <option value="all">All</option>
-                {categories.map((item, index) => (
-                    <option value={item}>{item}</option>
+                {categories && categories.map((item, index) => (
+                    <option value={item} key={index}>{item}</option>
                 ))}
             </select>
             {"Sum:  "}{sum.toString()}
-        </>
+        </CategoryStyle>
     )
 }
 

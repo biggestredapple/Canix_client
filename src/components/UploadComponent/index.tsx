@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { UploadButton } from './index.style';
+
+import { BASE_SERVER_API_URL } from '../../config';
 
 type Props = {
     setStateMsg: Function,
@@ -7,18 +9,14 @@ type Props = {
 }
 
 const UploadComponent: React.FC<Props> = ({ setStateMsg, setStatus }) => {
+    const API_URL = process.env.REACT_APP_SERVER || BASE_SERVER_API_URL;
+    const fileRef = useRef<HTMLInputElement | null>(null);
+
     const [fileList, setFileList] = useState<FileList>()
 
-    useEffect(() => {
-        fetch('http://localhost:3000/scales', {
-            method: 'get',
-        })
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error));
-    }, [])
 
     const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("onchange", fileRef);
         setFileList(event.target.files!);
     }
 
@@ -33,7 +31,7 @@ const UploadComponent: React.FC<Props> = ({ setStateMsg, setStatus }) => {
                 const formData = new FormData();
                 formData.append('file', file);
 
-                return fetch('http://localhost:3000/upload', {
+                return fetch(`${API_URL}/upload`, {
                     method: 'POST',
                     body: formData
                 })
@@ -46,7 +44,10 @@ const UploadComponent: React.FC<Props> = ({ setStateMsg, setStatus }) => {
                     if (res[0].message === "success") {
                         setStateMsg("Upload success");
                         setStatus(true);
-                        setFileList(undefined)
+                        setFileList(undefined);
+                        if (fileRef.current) fileRef.current.value = "";
+
+                        console.log(fileRef);
                     } else {
                         setStateMsg('Upload Failed');
                     }
@@ -59,7 +60,7 @@ const UploadComponent: React.FC<Props> = ({ setStateMsg, setStatus }) => {
     return (
         <UploadButton>
             <form onSubmit={handleSubmit}>
-                <input type="file" accept='text/csv' multiple={true} onChange={onImageChange} />
+                <input ref={fileRef} type="file" accept='text/csv' multiple={true} onChange={onImageChange} />
                 <input type='submit' />
             </form>
         </UploadButton>
