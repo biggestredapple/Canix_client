@@ -88,6 +88,10 @@ const ScalesContainer = () => {
     }, [])
 
     useEffect(() => {
+        Fetch(`${API_URL}/categories`).then(data => {
+            let res: any = data;
+            setCategories(res.categories);
+        });
         Fetch(`${API_URL}/scales/${selectedCategory}`).then(data => {
             let res: any = data;
             setScales(res.scales);
@@ -106,6 +110,9 @@ const ScalesContainer = () => {
             <UploadComponent setStateMsg={setStateMsg} setStatus={setStatus} />
             <CategoryComponent categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} sum={sum} />
             <TableComponent scales={scales} />
+            {categories.length === 0 ? (
+                <h1 style={{ textAlign: "center" }}>No Data</h1>
+            ) : ""}
         </>
     )
 }

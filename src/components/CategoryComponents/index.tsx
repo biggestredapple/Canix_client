@@ -1,5 +1,8 @@
 import React, { ChangeEvent } from "react";
 
+import { Select, MenuItem } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material";
+
 import { CategoryStyle } from './index.style'
 
 type Props = {
@@ -11,18 +14,18 @@ type Props = {
 
 const CategoryComponent: React.FC<Props> = ({ categories, sum, selectedCategory, setSelectedCategory }) => {
 
-    const onSelected = (event: ChangeEvent<HTMLSelectElement>) => {
+    const onSelected = (event: SelectChangeEvent) => {
         setSelectedCategory(event.target.value);
     }
 
     return (
         <CategoryStyle>
-            <select name="category" onChange={onSelected} value={selectedCategory}>
-                <option value="all">All</option>
+            <Select value={selectedCategory} onChange={onSelected} style={{ marginRight: "40px" }}>
+                <MenuItem value="all">All</MenuItem>
                 {categories && categories.map((item, index) => (
-                    <option value={item} key={index}>{item}</option>
+                    <MenuItem value={item} key={index}>{item}</MenuItem>
                 ))}
-            </select>
+            </Select>
             {"Sum:  "}{sum.toString()}
         </CategoryStyle>
     )

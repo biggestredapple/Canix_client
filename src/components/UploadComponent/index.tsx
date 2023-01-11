@@ -16,17 +16,12 @@ const UploadComponent: React.FC<Props> = ({ setStateMsg, setStatus }) => {
 
 
     const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("onchange", fileRef);
         setFileList(event.target.files!);
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (fileList) {
-            // const formData = new FormData();
-
-            // console.log("files: ", fileList);
-
             const upload = Array.from(fileList).map((file) => {
                 const formData = new FormData();
                 formData.append('file', file);
@@ -46,8 +41,6 @@ const UploadComponent: React.FC<Props> = ({ setStateMsg, setStatus }) => {
                         setStatus(true);
                         setFileList(undefined);
                         if (fileRef.current) fileRef.current.value = "";
-
-                        console.log(fileRef);
                     } else {
                         setStateMsg('Upload Failed');
                     }
