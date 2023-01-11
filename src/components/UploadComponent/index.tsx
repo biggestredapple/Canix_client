@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { message } from 'antd';
 import { UploadButton } from './index.style';
 
-const UploadComponent = () => {
+type Props = {
+    setStateMsg: Function,
+    setStatus: Function
+}
+
+const UploadComponent: React.FC<Props> = ({ setStateMsg, setStatus }) => {
     const [fileList, setFileList] = useState<FileList>()
 
     useEffect(() => {
@@ -33,15 +37,21 @@ const UploadComponent = () => {
                     method: 'POST',
                     body: formData
                 })
+                    .then(res => res.json())
                     .catch(error => console.log(error));
             });
 
             Promise.all(upload)
-                .then(() => {
-                    message.success("Upload success");
-                    setFileList(undefined)
+                .then((res) => {
+                    if (res[0].message === "success") {
+                        setStateMsg("Upload success");
+                        setStatus(true);
+                        setFileList(undefined)
+                    } else {
+                        setStateMsg('Upload Failed');
+                    }
                 })
-                .catch(() => message.error("Upload failed"))
+                .catch(() => { setStateMsg('Upload Failed') })
 
         }
     }

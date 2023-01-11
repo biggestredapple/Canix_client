@@ -1,7 +1,9 @@
 import UploadComponent from "./UploadComponent";
-import ScalesDisplayComponent from "./ScalesDisplayComponent";
+import TableComponent from "./TableComponent";
+import CategoryComponent from "./CategoryComponents";
 
 export {
     UploadComponent,
-    ScalesDisplayComponent
+    TableComponent,
+    CategoryComponent
 }
