@@ -23,6 +23,7 @@ const ScalesDisplayComponent: React.FC<Props> = ({ scales, categories, selectedC
                     <option value={item}>{item}</option>
                 ))}
             </select>
+            {"Sum:  "}
             <table>
                 <thead>
                     <tr>
