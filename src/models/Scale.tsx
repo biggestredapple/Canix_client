@@ -1,6 +1,6 @@
 type Scale = {
     category: string
-    date: Date
+    date: string
     productId: String
     weight: Number
     unit: String

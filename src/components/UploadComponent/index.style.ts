@@ -17,7 +17,7 @@ export const UploadButton = styled.div`
     box-sizing: border-box;
     color: #41403e;
     cursor: pointer;
-    display: inline-block;
+    display: inline-block;  
     font-size: 1rem;
     line-height: 23px;
     outline: none;
