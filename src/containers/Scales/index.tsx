@@ -13,53 +13,6 @@ import Scale from '../../models/Scale'
 import { Fetch } from '../../utils';
 import { BASE_SERVER_API_URL } from '../../config';
 
-// const scales: Scale[] = [
-//     {
-//         category: "NBN",
-//         date: "2021 - 03 - 01 01: 30: 32.977497+00: 00",
-//         productId: "NBN-1020202",
-//         weight: 2020,
-//         unit: "String"
-//     }, {
-//         category: "NBN",
-//         date: "2021 - 03 - 01 01: 30: 32.977497+00: 00",
-//         productId: "NBN-1020202",
-//         weight: 2020,
-//         unit: "String"
-//     }, {
-//         category: "NBN",
-//         date: "2021 - 03 - 01 01: 30: 32.977497+00: 00",
-//         productId: "NBN-1020202",
-//         weight: 2020,
-//         unit: "String"
-//     }, {
-//         category: "NBN",
-//         date: "2021 - 03 - 01 01: 30: 32.977497+00: 00",
-//         productId: "NBN-1020202",
-//         weight: 2020,
-//         unit: "String"
-//     }, {
-//         category: "NBN",
-//         date: "2021 - 03 - 01 01: 30: 32.977497+00: 00",
-//         productId: "NBN-1020202",
-//         weight: 2020,
-//         unit: "String"
-//     }, {
-//         category: "NBN",
-//         date: "2021 - 03 - 01 01: 30: 32.977497+00: 00",
-//         productId: "NBN-1020202",
-//         weight: 2020,
-//         unit: "String"
-//     }
-//]
-
-// const categories: string[] = [
-//     "NDK",
-//     "CIX",
-//     "IEO"
-// ]
-
-
 const ScalesContainer = () => {
     const API_URL = process.env.REACT_APP_SERVER || BASE_SERVER_API_URL;
 
@@ -68,7 +21,7 @@ const ScalesContainer = () => {
     const [categories, setCategories] = useState<string[]>([]);
     const [scales, setScales] = useState<Scale[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
-    const [sum, setSum] = useState<Number>(1334);
+    const [sum, setSum] = useState<Number>(0);
     useEffect(() => {
         setTimeout(() => {
             setStateMsg("");
