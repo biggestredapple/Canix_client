@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { message } from 'antd';
-
+import { UploadButton } from './index.style';
 
 const UploadComponent = () => {
     const [fileList, setFileList] = useState<FileList>()
@@ -47,12 +47,12 @@ const UploadComponent = () => {
     }
 
     return (
-        <div>
+        <UploadButton>
             <form onSubmit={handleSubmit}>
                 <input type="file" accept='text/csv' multiple={true} onChange={onImageChange} />
-                <button type='submit'>Submit</button>
+                <input type='submit' />
             </form>
-        </div>
+        </UploadButton>
     )
 }
 
