@@ -23,9 +23,6 @@ const UploadComponent: React.FC<Props> = ({ setStateMsg, setStatus }) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (fileList) {
-            // const formData = new FormData();
-
-            // console.log("files: ", fileList);
 
             const upload = Array.from(fileList).map((file) => {
                 const formData = new FormData();
