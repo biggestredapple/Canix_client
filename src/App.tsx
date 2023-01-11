@@ -7,7 +7,6 @@ import {
 // import pages
 import {
   ScalesPage,
-  PostPage
 } from './pages';
 
 // import constans
@@ -17,7 +16,6 @@ function App() {
   return (
     <Routes>
       <Route path={PATH.HOME} element={<ScalesPage />} />
-      <Route path="/post" element={<PostPage />} />
     </Routes>
   );
 }
